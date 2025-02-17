@@ -3,12 +3,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post("/register", async (req, res) => {
-  await register(req, res);
-});
-router.post("/login", async (req, res) => {
-  await login(req, res);
-});
+router.post("/register", register);
+router.post("/login", login);
 
 export default router;
 
