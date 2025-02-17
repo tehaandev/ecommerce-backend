@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/User";
 import * as jose from "jose";
-import { JWT_EXPIRE, JWT_SECRET } from "../constants/index";
+import generateJwt from "../utils/generateToken";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -10,10 +10,12 @@ export const register = async (req: Request, res: Response) => {
     const existingUser = await User.findOne({ email });
     if (existingUser)
       return res.status(400).json({ message: "User already exists" });
-
     const user = new User({ name, email, password });
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+    const token = await generateJwt({
+      userId: user._id,
+    });
+    res.status(201).json({ message: "User registered successfully", token });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
@@ -29,15 +31,9 @@ export const login = async (req: Request, res: Response) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = await new jose.SignJWT({
+    const token = await generateJwt({
       userId: user._id,
-    })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setIssuer("https://example.com")
-      .setAudience("https://example.com")
-      .setExpirationTime(JWT_EXPIRE)
-      .sign(JWT_SECRET);
+    });
 
     res.status(200).json({ token });
   } catch (error) {
