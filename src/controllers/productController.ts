@@ -36,3 +36,24 @@ export const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
