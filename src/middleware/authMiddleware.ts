@@ -1,4 +1,4 @@
-import { JWT_SECRET } from "@/constants";
+import { JWT_SECRET } from "../constants";
 import { Request, Response, NextFunction } from "express";
 import { JWTPayload, jwtVerify, JWTVerifyResult } from "jose";
 

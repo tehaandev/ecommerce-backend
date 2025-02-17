@@ -1,5 +1,5 @@
-import app from "@/app";
-import { connectDB } from "@/lib/db";
+import app from "./app";
+import { connectDB } from "./lib/db";
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
