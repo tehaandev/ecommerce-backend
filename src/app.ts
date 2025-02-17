@@ -2,6 +2,7 @@ import express from "express";
 import { configDotenv } from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
+import errorHandler from "./middleware/errorHandler";
 
 configDotenv({
   path: ".env",
@@ -12,6 +13,10 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 
+// Global error handler
+app.use(errorHandler);
+
+// Default route (Testing only)
 app.get("/", (req, res) => {
   res.send("Hello World");
 });

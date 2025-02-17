@@ -4,7 +4,11 @@ import { ProductDocument } from "../interfaces/document";
 const ProductSchema = new Schema<ProductDocument>(
   {
     name: { type: String, required: [true, "Product name is required"] },
-    sku: { type: String, required: [true, "SKU is required"], unique: true },
+    sku: {
+      type: String,
+      required: [true, "SKU is required"],
+      unique: [true, "SKU already exists"],
+    },
     description: {
       type: String,
       required: [true, "Product description is required"],
