@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "ts-node src/main.ts",
-    "start": "node dist/main.js",
+    "start": "node dist/src/main.js",
     "build": "tsc"
   }
 }
