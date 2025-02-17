@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import { UserDocument } from "../interfaces/document";
-import hashPassword from "../utils/hashPassword";
+import { UserDocument } from "@/interfaces/document";
+import hashPassword from "@/utils/hashPassword";
 
 const UserSchema = new Schema<UserDocument>(
   {

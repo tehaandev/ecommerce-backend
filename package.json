@@ -1,16 +1,21 @@
 {
   "dependencies": {
     "bcryptjs": "^3.0.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.10.1"
+    "jose": "^5.10.0",
+    "mongoose": "^8.10.1",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^20.17.19",
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "tsc",
-    "dev": "nodemon src/index.ts"
-  },
-  "type": "module"
+    "start": "node dist/main.js",
+    "build": "tsc"
+  }
 }
+
