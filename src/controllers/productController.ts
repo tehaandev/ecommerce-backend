@@ -7,7 +7,7 @@ import deleteFile from "../utils/deleteFile";
 export const createProduct = async (req: Request, res: Response) => {
   try {
     await connectDB();
-    const { name, description, sku } = req.body;
+    const { name, description, sku, qty, price } = req.body;
     if (!req.files || !Array.isArray(req.files)) {
       return res.status(400).json({ message: "Images are required" });
     }
@@ -15,6 +15,8 @@ export const createProduct = async (req: Request, res: Response) => {
       name,
       sku,
       description,
+      qty,
+      price,
     });
     const images = await Promise.all(
       req.files.map(async (file) => {

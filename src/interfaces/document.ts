@@ -4,6 +4,8 @@ export interface ProductDocument extends Document {
   id: string | Schema.Types.ObjectId;
   sku: string;
   name: string;
+  price: string;
+  qty: string;
   description: string;
   images: string[] | Schema.Types.ObjectId[];
   thumbnail: string | Schema.Types.ObjectId;

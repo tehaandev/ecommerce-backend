@@ -9,6 +9,14 @@ const ProductSchema = new Schema<ProductDocument>(
       required: [true, "SKU is required"],
       unique: [true, "SKU already exists"],
     },
+    price: {
+      type: String,
+      required: [true, "Product price is required"],
+    },
+    qty: {
+      type: String,
+      required: [true, "Product quantity is required"],
+    },
     description: {
       type: String,
       required: [true, "Product description is required"],
