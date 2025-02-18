@@ -54,7 +54,7 @@ export const getProducts = async (req: Request, res: Response) => {
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     await connectDB();
-    const { id } = req.body;
+    const { id } = req.params;
     const product = await Product.findByIdAndDelete(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
