@@ -51,6 +51,20 @@ export const getProducts = async (req: Request, res: Response) => {
   }
 };
 
+export const getProductById = async (req: Request, res: Response) => {
+  try {
+    await connectDB();
+    const { id } = req.params;
+    const product = await Product.findById(id).populate("images", "imageUri");
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     await connectDB();
@@ -76,22 +90,59 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     await connectDB();
-    const { id } = req.body;
+    const { id } = req.params;
+    const { name, price, qty, description, existingImages, thumbnail } =
+      req.body;
     const product = await Product.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+    const parsedExistingImages = existingImages
+      ? JSON.parse(existingImages)
+      : [];
+    const currentImageIds = product.images.map((img: any) =>
+      img._id.toString()
+    );
+    const imagesToDelete = currentImageIds.filter(
+      (imgId: any) =>
+        !parsedExistingImages.some((img: any) => img._id.toString() === imgId)
+    );
+    for (let i = 0; i < imagesToDelete.length; i++) {
+      const deletedImage = await ProductImage.findByIdAndDelete(
+        imagesToDelete[i]
+      );
+      deleteFile(deletedImage.imageUri);
+    }
+    if (req.files && Array.isArray(req.files)) {
+      const newImages = await Promise.all(
+        req.files.map(async (file) => {
+          const productImage = await ProductImage.create({
+            productId: product._id,
+            imageUri: file.path,
+          });
+          return productImage._id;
+        })
+      );
+      parsedExistingImages.push(...newImages);
+    }
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
-      { $set: req.body },
+      {
+        name,
+        price,
+        qty,
+        description,
+        thumbnail,
+        images: parsedExistingImages,
+      },
       { new: true }
     );
     res.status(200).json({
       message: "Product updated successfully",
       product: updatedProduct,
     });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+  } catch (error: any) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
