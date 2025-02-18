@@ -44,7 +44,7 @@ export const createProduct = async (req: Request, res: Response) => {
 export const getProducts = async (req: Request, res: Response) => {
   try {
     await connectDB();
-    const products = await Product.find();
+    const products = await Product.find().populate("images", "imageUri");
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: "Server error", error });

@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
 import favoriteRoutes from "./routes/favoriteRoutes";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 app.use(
@@ -16,6 +17,7 @@ app.use(
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/products", authenticate, productRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/favorites", authenticate, favoriteRoutes);
 
 // Global error handler

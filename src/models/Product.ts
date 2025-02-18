@@ -21,8 +21,8 @@ const ProductSchema = new Schema<ProductDocument>(
       type: String,
       required: [true, "Product description is required"],
     },
-    images: [{ type: Schema.Types.ObjectId, ref: "ProductImages" }],
-    thumbnail: { type: Schema.Types.ObjectId, ref: "ProductImages" },
+    images: [{ type: Schema.Types.ObjectId, ref: "ProductImage" }],
+    thumbnail: { type: Schema.Types.ObjectId, ref: "ProductImage" },
   },
   { timestamps: true }
 );
