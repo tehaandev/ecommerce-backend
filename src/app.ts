@@ -1,13 +1,8 @@
 import express from "express";
-import { configDotenv } from "dotenv";
+import { authenticate } from "./middleware/authMiddleware";
+import errorHandler from "./middleware/errorHandler";
 import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
-import errorHandler from "./middleware/errorHandler";
-import { authenticate } from "./middleware/authMiddleware";
-
-configDotenv({
-  path: ".env",
-});
 
 const app = express();
 app.use(express.json());

@@ -1,4 +1,10 @@
+import { config } from "dotenv";
 import mongoose from "mongoose";
+import path from "path";
+
+config({
+  path: path.resolve(__dirname, "../../.env"),
+});
 
 const MONGO_URI = process.env.MONGO_URI;
 const DATABASE_NAME = process.env.DATABASE_NAME;
@@ -17,6 +23,7 @@ export const connectDB = async () => {
       maxPoolSize: 10,
       minPoolSize: 5,
     });
+    console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
     return Promise.reject(error);

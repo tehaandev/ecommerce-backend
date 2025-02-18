@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import { Request, Response } from "express";
+import { connectDB } from "../lib/db";
 import User from "../models/User";
-import * as jose from "jose";
 import generateJwt from "../utils/generateToken";
 
 export const register = async (req: Request, res: Response) => {
   try {
+    await connectDB();
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -23,6 +24,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
+    await connectDB();
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid credentials" });

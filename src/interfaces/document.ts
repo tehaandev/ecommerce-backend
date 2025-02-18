@@ -18,9 +18,9 @@ export interface UserDocument extends Document {
   favorites: string[];
 }
 
-export interface ProductImagesDocument extends Document {
+export interface ProductImageDocument extends Document {
   id: string | Schema.Types.ObjectId;
   productId: string | Schema.Types.ObjectId;
-  endocedImage: string;
+  imageUri: string;
 }
 
