@@ -4,6 +4,7 @@ import errorHandler from "./middleware/errorHandler";
 import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
 import favoriteRoutes from "./routes/favoriteRoutes";
+import searchRoutes from "./routes/searchRoutes";
 import cors from "cors";
 import path from "path";
 
@@ -19,6 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", authenticate, productRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/favorites", authenticate, favoriteRoutes);
+app.use("/api/search", authenticate, searchRoutes);
 
 // Global error handler
 app.use(errorHandler);
