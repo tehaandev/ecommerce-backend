@@ -45,7 +45,7 @@ ecommerce-backend/
 │   │   ├── authMiddleware.ts
 │   │   ├── errorHandler.ts
 │   │   ├── uploadMiddleware.ts
-│   ├── models/                 # Mogoose models
+│   ├── models/                 # Mongoose models
 │   │   ├── Product.ts
 │   │   ├── ProductImage.ts
 │   │   ├── User.ts
