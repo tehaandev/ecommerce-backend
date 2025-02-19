@@ -47,10 +47,8 @@ export const searchProducts = async (req: Request, res: Response) => {
         $project: {
           _id: 1,
           name: 1,
-          price: 1,
-          qty: 1,
+          sku: 1,
           description: 1,
-          images: 1,
         },
       },
       {
