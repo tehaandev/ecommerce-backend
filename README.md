@@ -38,7 +38,7 @@ ecommerce-backend/
 │   │   ├── searchController.ts
 │   ├── interfaces/             # Interfaces and types
 │   │   ├── document.ts         # Interfaces for mongoose models
-│   ├── lib/                    # Mongoose schemas/models
+│   ├── lib/                    # Configs and Initaliazations
 │   │   ├── db.ts               # Mongoose and MongoDB initialization
 │   ├── routes/                 # Express route handlers
 │   ├── middlewares/            # Custom middleware
@@ -66,7 +66,7 @@ ecommerce-backend/
 │── env.sample                  # Sample environment variables file
 │── .gitignore                  # Git ignore file
 │── package.json                # Dependencies & scripts
-│── tsconfig.json               # TypeScript configuration (if using TS)
+│── tsconfig.json               # TypeScript configuration
 │── README.md                   # Project documentation
 ```
 
