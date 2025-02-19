@@ -5,8 +5,7 @@ import Product from "../models/Product";
 export const searchProducts = async (req: Request, res: Response) => {
   try {
     await connectDB();
-    const { q: query } = req.params;
-    const queryRegex = new RegExp(query, "i");
+    const { query } = req.params;
     const products = await Product.aggregate([
       {
         $search: {
